@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Bold" android:id="@+id/action_edit_bold"/>
+    <item android:title="Underline" android:id="@+id/action_edit_underline"/>
+    <item android:title="Italics" android:id="@+id/action_edit_italic"/>
+    <item android:title="Bullet point" android:id="@+id/action_edit_list"/>
+</menu>

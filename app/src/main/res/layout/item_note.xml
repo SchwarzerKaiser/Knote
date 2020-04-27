@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/note_cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:contentPadding="4dp"
+    app:cardBackgroundColor="#5C5B5B"
+
+    app:cardCornerRadius="10dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp">
+
+    <TextView
+        android:id="@+id/item_textview"
+        android:text="This is a note. Sometimes spelled 'Knote'."
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="#FBFBFB"
+        android:layout_margin="8dp" />
+
+</com.google.android.material.card.MaterialCardView>
+

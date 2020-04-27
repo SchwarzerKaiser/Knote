@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/notesFragment">
+
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.leewilson.knote.ui.main.notes.NotesFragment"
+        android:label="Knote" >
+        <action
+            android:id="@+id/action_notesFragment_to_noteDetailFragment"
+            app:enterAnim="@anim/popup_enter"
+            app:exitAnim="@anim/popup_exit"
+            app:destination="@id/noteDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteDetailFragment"
+        android:name="com.leewilson.knote.ui.main.detail.NoteDetailFragment"
+        android:label="Edit note" >
+        <argument
+            android:name="noteId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>
