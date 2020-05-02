@@ -15,6 +15,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/notes_multiselection_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
         android:layout_width="match_parent"

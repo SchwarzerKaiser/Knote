@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:contentPadding="4dp"
-    app:cardBackgroundColor="#5C5B5B"
-
+    app:cardBackgroundColor="@color/colorNoteBackground"
     app:cardCornerRadius="10dp"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
@@ -19,7 +18,7 @@
         android:text="This is a note. Sometimes spelled 'Knote'."
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="#FBFBFB"
+        android:textColor="@color/colorNoteText"
         android:layout_margin="8dp" />
 
 </com.google.android.material.card.MaterialCardView>

@@ -3,4 +3,7 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorNoteText">#FBFBFB</color>
+    <color name="colorNoteBackground">#5C5B5B</color>
+    <color name="colorNoteBackgroundSelected">#C3C3C3</color>
 </resources>

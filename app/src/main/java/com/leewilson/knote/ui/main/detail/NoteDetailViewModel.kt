@@ -14,17 +14,15 @@ class NoteDetailViewModel @Inject constructor(
 
     val noteId = MutableLiveData<Int>()
 
-    val _note = MediatorLiveData<Note>()
+    val note: MediatorLiveData<Note> = MediatorLiveData()
 
-    val note: LiveData<Note>
-        get(){
-            _note.addSource(noteId) { id ->
-                viewModelScope.launch(Dispatchers.Main) {
-                    _note.value = repository.getNoteById(pk = id)
-                }
+    init {
+        note.addSource(noteId) { id ->
+            viewModelScope.launch {
+                note.value = repository.getNoteById(id)
             }
-            return _note
         }
+    }
 
     fun saveNote(note: Note) {
         GlobalScope.launch {

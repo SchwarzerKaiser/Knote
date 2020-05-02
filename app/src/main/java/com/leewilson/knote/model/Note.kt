@@ -17,4 +17,8 @@ data class Note(
 
     @ColumnInfo(name = "creation_date")
     var creationDate: Long
-)
+) {
+    override fun toString(): String {
+        return "Note(pk=$pk, note=[${note.length} chars], creationDate=$creationDate)"
+    }
+}

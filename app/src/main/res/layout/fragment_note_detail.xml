@@ -14,6 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/editor_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detail_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <EditText
         android:id="@+id/note_edittext"
         android:inputType="textMultiLine"
@@ -27,6 +35,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/editor_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

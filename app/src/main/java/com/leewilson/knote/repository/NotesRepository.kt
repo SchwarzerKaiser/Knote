@@ -11,19 +11,13 @@ class NotesRepository(
     val noteDao: NoteDao
 ) {
 
-    suspend fun getAllNotes(): List<Note> {
-        return noteDao.getAllNotes()
-    }
+    suspend fun getAllNotes(): List<Note> = noteDao.getAllNotes()
 
-    suspend fun getNoteById(pk: Int): Note {
-        return noteDao.getNoteById(pk)
-    }
+    suspend fun getNoteById(pk: Int): Note = noteDao.getNoteById(pk)
 
-    suspend fun addNote(note: Note) {
-        noteDao.addNote(note)
-    }
+    suspend fun addNote(note: Note) = noteDao.addNote(note)
 
-    suspend fun updateNote(note: Note) {
-        noteDao.addNote(note)
-    }
+    suspend fun updateNote(note: Note) = noteDao.addNote(note)
+
+    suspend fun deleteNotes(notes: List<Note>) = noteDao.deleteNotes(notes)
 }

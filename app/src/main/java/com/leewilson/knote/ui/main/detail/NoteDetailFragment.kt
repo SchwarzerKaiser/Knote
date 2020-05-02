@@ -6,6 +6,7 @@ import android.text.Html
 import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -23,11 +24,12 @@ import javax.inject.Inject
 
 class NoteDetailFragment : DaggerFragment() {
 
-    val LOG_TAG = "NoteDetailFragment"
-    val NEW_NOTE = -1
+    private val LOG_TAG = "NoteDetailFragment"
+    private val NEW_NOTE = -1
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+
     private lateinit var viewModel: NoteDetailViewModel
     private var noteId: Int = -1
     private var thisNote: Note? = null
@@ -43,11 +45,27 @@ class NoteDetailFragment : DaggerFragment() {
 
         initViewModel()
         setupNav()
+        setUpToolbarActions()
 
         // If argument is -1, it's a new note, otherwise existing note
         if (noteId > NEW_NOTE) {
             subscribeObservers()
             viewModel.noteId.value = noteId
+        }
+    }
+
+    private fun setUpToolbarActions() {
+        editor_toolbar.inflateMenu(R.menu.note_detail_actions)
+        editor_toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_edit_bold -> {
+                    Log.d(LOG_TAG, "Bold selected.")
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        note_edittext.append(Html.fromHtml("<b>", Html.FROM_HTML_MODE_COMPACT))
+                    }
+                }
+            }
+            true
         }
     }
 
@@ -70,6 +88,7 @@ class NoteDetailFragment : DaggerFragment() {
     }
 
     private fun displayNote(txt: String) {
+        txt.replace("<br />", "\n")
         if(Build.VERSION.SDK_INT >= 24) {
             val spanned: Spanned = Html.fromHtml(txt, Html.FROM_HTML_MODE_COMPACT)
             note_edittext.setText(spanned)
@@ -78,19 +97,16 @@ class NoteDetailFragment : DaggerFragment() {
         }
     }
 
-    override fun onDetach() {
-        Log.d(LOG_TAG, "onDetach")
-        super.onDetach()
-    }
-
-    override fun onDestroy() {
-        Log.d(LOG_TAG, "onDestroy")
-        super.onDestroy()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d(LOG_TAG, "Item selected: ${item.title}")
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroyView() {
 
-        val editorString = note_edittext.text.toString()
+        val editorString = note_edittext.text
+            .toString()
+            .replace("\\n".toRegex(), "<br />")
 
         // New note has been edited.
         if (noteId == NEW_NOTE && !editorString.isEmpty()) {
