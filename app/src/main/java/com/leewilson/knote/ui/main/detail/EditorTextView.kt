@@ -20,5 +20,6 @@ class EditorTextView: AppCompatEditText {
         lengthAfter: Int
     ) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter)
+
     }
 }

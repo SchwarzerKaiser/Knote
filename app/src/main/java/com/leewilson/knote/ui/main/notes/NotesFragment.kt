@@ -3,9 +3,9 @@ package com.leewilson.knote.ui.main.notes
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager.*
 import com.leewilson.knote.model.Note
 import com.leewilson.knote.R
 import com.leewilson.knote.adapters.NoteRecyclerAdapter
-import com.leewilson.knote.ui.main.notes.state.NotesViewState
 import com.leewilson.knote.ui.main.notes.state.NotesViewState.*
 import com.leewilson.knote.viewmodels.ViewModelProviderFactory
 import dagger.android.support.DaggerFragment
@@ -49,10 +48,43 @@ class NotesFragment : DaggerFragment(), NoteRecyclerAdapter.Interaction {
         initRecyclerView(view)
         subscribeObservers()
         setFabListener()
+        initFilterSearchView()
+    }
+
+    private fun initFilterSearchView() {
+        search_view.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    filterNotes(it)
+                    return true
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let {
+                    filterNotes(it)
+                    return true
+                }
+                return false
+            }
+        })
+    }
+
+    private fun filterNotes(searchTerm: CharSequence) {
+        viewModel.notes.value?.let { notes ->
+            recyclerAdapter?.submitList(
+                notes.filter {
+                    it.note.contains(searchTerm)
+                }
+            )
+        }
     }
 
     private fun setUpToolbarActions() {
+
         notes_multiselection_toolbar.inflateMenu(R.menu.notes_multiselection_toolbar_actions)
+
         notes_multiselection_toolbar.setOnMenuItemClickListener { item ->
             Log.d(LOG_TAG, "menu item selected: ${item.itemId}")
             if(item.itemId == R.id.action_delete_notes) {
@@ -61,7 +93,9 @@ class NotesFragment : DaggerFragment(), NoteRecyclerAdapter.Interaction {
             true
         }
 
-        notes_multiselection_toolbar.title = "Select notes"
+        multiselection_cancel.setOnClickListener {
+            viewModel.setViewState(DefaultViewState)
+        }
     }
 
     private fun setupNav() {
@@ -85,6 +119,10 @@ class NotesFragment : DaggerFragment(), NoteRecyclerAdapter.Interaction {
             } else {
                 recyclerAdapter?.submitList(listNotes)
             }
+        })
+
+        viewModel.selectedNotes.observe(viewLifecycleOwner, Observer {
+            number_selected_textview.text = it.size.toString()
         })
 
         viewModel.viewState.observe(viewLifecycleOwner, Observer { viewState ->

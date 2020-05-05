@@ -22,7 +22,30 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="invisible"/>
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:src="@drawable/clear_icon_white"
+                android:id="@+id/multiselection_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+            <TextView
+                android:id="@+id/number_selected_textview"
+                android:text="0"
+                android:layout_marginStart="16dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search_view"
